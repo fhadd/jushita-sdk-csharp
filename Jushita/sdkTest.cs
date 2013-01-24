@@ -50,18 +50,18 @@ namespace Top.Api.Jushita
                     Console.WriteLine(e.Message + "\n" + e.StackTrace);
                 }
 
-            Console.WriteLine("pub done");
-            System.Threading.Thread.Sleep(5000);
+            //Console.WriteLine("pub done");
+            //System.Threading.Thread.Sleep(5000);
 
-            Console.WriteLine("ready to receve");
-            List<string> topics = new List<string>();
-            topics.Add("guichen.test1");
-            JushitaConfigurationV2 config = new JushitaConfigurationV2(sub_key, sub_secret, connectId, topics);
-            config.SetConnectUrl(connectUrl);
-            config.setCometMessageListener(new messageListener());
-            config.setReportCount(10);
-            JushitaTopCometStreamImpl stream = new JushitaTopCometStreamImpl(config);
-            stream.Start();
+            //Console.WriteLine("ready to receve");
+            //List<string> topics = new List<string>();
+            //topics.Add("guichen.test1");
+            //JushitaConfigurationV2 config = new JushitaConfigurationV2(sub_key, sub_secret, connectId, topics);
+            //config.SetConnectUrl(connectUrl);
+            //config.setCometMessageListener(new messageListener());
+            //config.setReportCount(10);
+            //JushitaTopCometStreamImpl stream = new JushitaTopCometStreamImpl(config);
+            //stream.Start();
             for (; ; )
                 System.Threading.Thread.Sleep(5000);
         }

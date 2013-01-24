@@ -35,6 +35,7 @@ namespace Top.Api.Util
         /// <returns>HTTP响应</returns>
         public string DoPost(string url, IDictionary<string, string> parameters)
         {
+            string result = null;
             HttpWebRequest req = GetWebRequest(url, "POST");
             req.ContentType = "application/x-www-form-urlencoded;charset=utf-8";
 
@@ -42,11 +43,24 @@ namespace Top.Api.Util
             System.IO.Stream reqStream = req.GetRequestStream();
             reqStream.Write(postData, 0, postData.Length);
             reqStream.Close();
-
-            HttpWebResponse rsp = (HttpWebResponse)req.GetResponse();
-            Encoding encoding = Encoding.GetEncoding(rsp.CharacterSet);
-            return GetResponseAsString(rsp, encoding);
+            try
+            {
+                HttpWebResponse rsp = (HttpWebResponse)req.GetResponse();
+                Encoding encoding = Encoding.GetEncoding(rsp.CharacterSet);
+                return GetResponseAsString(rsp, encoding);
+            }
+            catch (WebException e)
+            {
+                using (WebResponse response = e.Response)
+                {
+                    HttpWebResponse httpResponse = (HttpWebResponse)response;
+                    Encoding encoding = Encoding.GetEncoding(httpResponse.CharacterSet);
+                    return GetResponseAsString(httpResponse, encoding);
+                }
+            }
         }
+
+  
 
         /// <summary>
         /// 执行HTTP GET请求。
