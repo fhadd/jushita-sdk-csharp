@@ -35,7 +35,6 @@ namespace Top.Api.Util
         /// <returns>HTTP响应</returns>
         public string DoPost(string url, IDictionary<string, string> parameters)
         {
-            string result = null;
             HttpWebRequest req = GetWebRequest(url, "POST");
             req.ContentType = "application/x-www-form-urlencoded;charset=utf-8";
 
