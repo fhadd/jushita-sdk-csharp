@@ -31,22 +31,25 @@ namespace Top.Api.Jushita
             string format_json = "json";
             int timeout = 10000;
 
-            JushitaTopClient client = new JushitaTopClient(serverUrl, pub_key, pub_secret,"Json",timeout);
+            JushitaTopClient client = new JushitaTopClient("http://10.232.19.202/api", "484085", "3300717ba15b56a0a7a39487cb2dc95d", "xml", timeout);
             IDictionary<string, string> param = new Dictionary<string, string>();
-            param.Add("topic", topic);
-            param.Add("user_id", user_id);
-            param.Add("message", "*****hellotk*******");
-            for (int i = 0; i < 50; i++)
-            {
+            param.Add("biz_id", "101280000000680001");
+            param.Add("sc_item_name", "TOpitemName123");
+            param.Add("outer_code", "topouterCode123");
+            param.Add("inventorys", "[{\"storeCode\":\"yanqiu_002\",\"quantity\":100,\"inventoryType\":1}]");
+            param.Add("items", "{\"simple_sc_item_maps\":{\"simple_sc_item_map\":[{\"item_id\":\"1500009650483\"}]}}");
+
+
                 try
                 {
-                    string rsp = client.Execute("put_data", param, session);
+                    string rsp = client.Execute("taobao.scitem.sample.pcs.add", param, "cca8b9f8312e7c8f3d874fd62ce257bd004c2924d23fc8636325b69b60094457");
+                    Console.WriteLine(rsp);
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message + "\n" + e.StackTrace);
                 }
-            }
+
             Console.WriteLine("pub done");
             System.Threading.Thread.Sleep(5000);
 
