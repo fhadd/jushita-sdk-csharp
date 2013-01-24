@@ -27,8 +27,11 @@ namespace Top.Api.Jushita
             string serverUrl = "http://10.235.144.91:8080/message/pub";
             string connectUrl = "http://10.235.144.91:8080/message/sub";
             string connectId = "liubing_test_connect";
+            string format_xml = "xml";
+            string format_json = "json";
+            int timeout = 10000;
 
-            JushitaTopClient client = new JushitaTopClient(serverUrl, pub_key, pub_secret);
+            JushitaTopClient client = new JushitaTopClient(serverUrl, pub_key, pub_secret,"Json",timeout);
             IDictionary<string, string> param = new Dictionary<string, string>();
             param.Add("topic", topic);
             param.Add("user_id", user_id);

@@ -23,11 +23,12 @@ namespace Top.Api
         public const string PARTNER_ID = "partner_id";
         public const string SESSION = "session";
         public const string FORMAT_XML = "xml";
+        public const string FORMAT_JSON = "json";
 
         private string serverUrl;
         private string appKey;
         private string appSecret;
-        private string format = FORMAT_XML;
+        private string format ;
 
         private WebUtils webUtils;
         private ITopLogger topLogger;
@@ -59,6 +60,23 @@ namespace Top.Api
             webUtils.Timeout = timeout;
         }
 
+        public void SetFormat(string format)
+        {
+            if (string.Compare(format,"xml",true) == 0)
+            {
+                this.format = FORMAT_XML;
+            }
+            else if (string.Compare(format,"json",true) == 0)
+            {
+                this.format = FORMAT_JSON;
+            }
+            //若什么都不填，默认还是xml
+            else
+            {
+                this.format = FORMAT_XML;
+            }
+
+        }
         public void SetDisableParser(bool disableParser)
         {
             this.disableParser = disableParser;

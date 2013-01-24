@@ -29,6 +29,14 @@ namespace Top.Api.Jushita
             this.topClient.SetTimeout(timeout);
         }
 
+        public JushitaTopClient(string serverUrl, string appKey, string appSecret, string format, int timeout)
+            : this(serverUrl, appKey, appSecret)
+        {
+            this.topClient.SetFormat(format);
+            this.topClient.SetTimeout(timeout);
+        }
+
+
         public string Execute(string apiName, IDictionary<string, string> parameters, string session)
         {
             JushitaRequest request = new JushitaRequest();
