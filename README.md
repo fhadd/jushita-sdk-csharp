@@ -111,6 +111,42 @@ SDK的应用的主要逻辑分两个步骤：
 
 2. to be continued...
 
+调用API的实例代码(C#)
+---
+            string severUrl = "http://10.232.19.202/api";
+            string appkey = "484085";
+            string secret = "3300717ba15b56a0a7a39487cb2dc95d;
+            string format = "json";
+            int timeout = 10000;
+            string topic = "taobao.scitem.sample.pcs.add";
+            string session = "cca8b9f8312e7c8f3d874fd62ce257bd004c2924d23fc8636325b69b60094457“;
+            JushitaTopClient client = new JushitaTopClient(serverUrl, appkey, secret, format, timeout);
+            IDictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("biz_id", "101280000000680001");
+            param.Add("sc_item_name", "TOpitemName123");
+            param.Add("outer_code", "topouterCode123");
+            param.Add("inventorys", "[{\"storeCode\":\"yanqiu_002\",\"quantity\":100,\"inventoryType\":1}]");
+            param.Add("items", "{\"simple_sc_item_maps\":{\"simple_sc_item_map\":[{\"item_id\":\"1500009650483\"}]}}");
+            try
+                {
+                    string rsp = client.Execute(topic, param, session);
+                    Console.WriteLine(rsp);
+                }
+                //捕获异常
+                catch (WebException e)
+                {
+                    using (WebResponse response = e.Response)
+                    {
+                        //测试对于异常我们是打出errorcode和errormessage
+                        HttpWebResponse httpResponse = (HttpWebResponse)response;
+                        Console.WriteLine("Error code: {0}", httpResponse.StatusCode);
+                        using (var streamReader = new HttpWebResponse httpResponse = (HttpWebResponse)response;
+                        Console.WriteLine("Error code: {0}", httpResponse.StatusCode);
+                        using (var streamReader = new StreamReader(response.GetResponseStream()))
+                            Console.WriteLine(streamReader.ReadToEnd());
+                    }
+                }
+
 
 发布消息的示例代码（C#）
 ---
