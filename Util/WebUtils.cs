@@ -43,8 +43,11 @@ namespace Top.Api.Util
             reqStream.Write(postData, 0, postData.Length);
             reqStream.Close();
             HttpWebResponse rsp = (HttpWebResponse)req.GetResponse();
-            Encoding encoding = Encoding.GetEncoding(rsp.CharacterSet);
-            return GetResponseAsString(rsp, encoding);
+            if (rsp.CharacterSet == "" || rsp.CharacterSet == null)
+            {
+                return GetResponseAsString(rsp, Encoding.UTF8);
+            }
+            return GetResponseAsString(rsp, Encoding.GetEncoding(rsp.CharacterSet));
         }
 
   

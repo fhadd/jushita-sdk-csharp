@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Top.Api.Request;
+using System.Net;
 
 namespace Top.Api.Jushita
 {
@@ -42,8 +43,20 @@ namespace Top.Api.Jushita
             JushitaRequest request = new JushitaRequest();
             request.ApiName = apiName;
             request.Parameters = parameters;
-            JushitaResponse response = topClient.Execute(request, session);
-            return response.Body;
+            try
+            {
+                JushitaResponse response = topClient.Execute(request, session);
+                return response.Body;
+            }
+            catch (WebException e)
+            {
+                using (WebResponse response = e.Response)
+                {
+                    HttpWebResponse httpResponse = (HttpWebResponse)response;
+                    using (var streamReader = new System.IO.StreamReader(response.GetResponseStream()))
+                        return streamReader.ReadToEnd();
+                }
+            }
         }
        
     }
@@ -73,6 +86,4 @@ namespace Top.Api.Jushita
     public class JushitaResponse : TopResponse
     {
     }
-
-
 }
